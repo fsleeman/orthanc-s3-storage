@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 
+while [ "$#" -gt "0" ]; do
+  case "$1" in
+    -r|--root-dir)
+      ROOT_DIR="$2"
+      shift 2
+    ;;
+    *)
+      CMD="$1"
+      break
+    ;;
+  esac
+done
 
 die() {
 echo "$*" >&2
 exit 1  
 }
-
-ROOT_DIR=$(git rev-parse --show-toplevel)
 
 if ! [ $? -eq 0 ] ; then
     echo "Set working directory inside git repo before running current script."
